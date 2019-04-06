@@ -450,7 +450,7 @@ document.addEventListener("DOMContentLoaded", function(){
                     melodyFlagAry[i] = 1;
                     ++melodyFlagAry[i];
                 }else{
-                    music_scale = 0;
+                    //music_scale = 0;
                 }
                 synth.triggerAttackRelease(music_scale, melody_length_ary[i]);
             }
