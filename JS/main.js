@@ -432,34 +432,44 @@ document.addEventListener("DOMContentLoaded", function(){
         diffTime = atTime.getTime() - startTime.getTime();
         //console.log(diffTime);
         
+        var clickSuccessFlag = false;
         for(var i=atCount+1; i<melody_time_ary.length; i++){
            // music_scale = melody_data[countUp];
            // console.log(melody_time_ary[i] * BPNConvertMSEC);
             if((melody_time_ary[i]-100) <= diffTime + melody_time_ary[0]){
                 atCount = i;
+                clickSuccessFlag = true;
             }
         }
 
-        var rand = Math.random() * (melody_data - 1);
-
-        for(var i=atCount; i<atCount+10; i++){
-            if(melody_time_ary[atCount] == melody_time_ary[i]){
-                if(melodyFlagAry[i] == 0){
-                    if(norm > norm_threshold){
-                        console.log(norm);
-                        music_scale = melody_data[i];
+        var rand = Math.round(Math.random() * melody_data.length);
+        console.log(rand);
+        if(clickSuccessFlag){
+            for(var i=atCount; i<atCount+10; i++){
+                if(melody_time_ary[atCount] == melody_time_ary[i]){
+                    if(melodyFlagAry[i] == 0){
+                        if(norm > norm_threshold){
+                            //console.log(norm);
+                            music_scale = melody_data[i];
+                        }
+                        melodyFlagAry[i] = 1;
+                        ++melodyFlagAry[i];
+                    }else{
+                        if(norm > norm_threshold){
+                            console.log(norm);
+                            music_scale = melody_data[rand];
+                        }
+                        //music_scale = 0;
                     }
-                    melodyFlagAry[i] = 1;
-                    ++melodyFlagAry[i];
-                }else{
-                    if(norm > norm_threshold){
-                        console.log(norm);
-                        music_scale = melody_data[rand];
-                    }
-                    //music_scale = 0;
+                    synth.triggerAttackRelease(music_scale, melody_length_ary[i]);
                 }
-                synth.triggerAttackRelease(music_scale, melody_length_ary[i]);
             }
+        }else{
+            if(norm > norm_threshold){
+                music_scale = melody_data[rand];
+            }else{
+            }
+            synth.triggerAttackRelease(music_scale, "8n");
         }
  
         //music_scale = melody_data[countUp];
