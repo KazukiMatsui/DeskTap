@@ -440,6 +440,8 @@ document.addEventListener("DOMContentLoaded", function(){
             }
         }
 
+        var rand = Math.random() * (melody_data - 1);
+
         for(var i=atCount; i<atCount+10; i++){
             if(melody_time_ary[atCount] == melody_time_ary[i]){
                 if(melodyFlagAry[i] == 0){
@@ -450,6 +452,10 @@ document.addEventListener("DOMContentLoaded", function(){
                     melodyFlagAry[i] = 1;
                     ++melodyFlagAry[i];
                 }else{
+                    if(norm > norm_threshold){
+                        console.log(norm);
+                        music_scale = melody_data[rand];
+                    }
                     //music_scale = 0;
                 }
                 synth.triggerAttackRelease(music_scale, melody_length_ary[i]);
