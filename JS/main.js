@@ -398,14 +398,14 @@ function startAccompaniment(timeAry, dataAry, lengthAry, volumeAry, flagAry, mai
         waitNote(nextTime, i, mainFlag, flagAry).done(function(count, mainFlag){
             if(mainFlag){
                 if(flagAry[count] == 0){
-                    synth.volume.value = -1*(127 - volumeAry[count])/2;
+                    synth.volume.value = -0.1*(127 - volumeAry[count]);
                     //synth.volume.value = -20;
                     var scale = dataAry[count];
                     synth.triggerAttackRelease(scale, lengthAry[count]);
                 }
             }
             else{
-                synth.volume.value = -1*(127 - volumeAry[count])/2;
+                synth.volume.value = -0.1*(127 - volumeAry[count])/2;
                 var scale = dataAry[count];
                 synth.triggerAttackRelease(scale, lengthAry[count]); 
             }
