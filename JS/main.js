@@ -425,8 +425,9 @@ document.addEventListener("DOMContentLoaded", function(){
             Tone.Transport.start();
             startTime = new Date();
             atTime = new Date();
-        }
-        else{
+            countUp = 0;
+            atCount = 0;
+        }else{
             atTime = new Date();
         }
         diffTime = atTime.getTime() - startTime.getTime();
@@ -475,9 +476,11 @@ document.addEventListener("DOMContentLoaded", function(){
         //music_scale = melody_data[countUp];
         countUp++;
 
-        if((melody_time_ary[melody_time_ary.length]) < diffTime){
-            Tone.Transport.stop();
+        if((melody_time_ary[melody_time_ary.length-1]) < diffTime){
+            //Tone.Transport.stop();
+            console.log("Over!");
             count = 0;
+            melodyFlagAry = createBrankAry(melody_time_ary);
         }
         else{
             count++;
