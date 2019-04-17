@@ -550,7 +550,7 @@ function startAccompaniment(timeAry, dataAry, lengthAry, volumeAry, flagAry, mai
     var synth = new Tone.Synth().toMaster();
     for(var i=0; i<timeAry.length; i++){
         var nextTime = timeAry[i] - melody_time_ary[0];
-        //nextTime = nextTime * 2.5;
+        nextTime = nextTime * 2.5;
 
         waitNote(nextTime, i, mainFlag, flagAry).done(function(count, mainFlag){
             if(mainFlag){
