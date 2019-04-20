@@ -225,7 +225,7 @@ var melody_length_ary1 = [
     
     var timeScale = 1.5;
     for(var i=0; i<melody_time_ary1.length; i++){
-        melody_time_ary1[i] = melody_time_ary1[i] + 5100;
+        melody_time_ary1[i] = melody_time_ary1[i] + 5150;
         //melody_time_ary1[i] = melody_time_ary1[i];
     }
 
