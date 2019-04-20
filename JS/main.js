@@ -249,7 +249,7 @@ var afterRange = 100;
 document.addEventListener("DOMContentLoaded", function(){
     var ripple_wood = document.getElementById("ripple_div");
     
-    ripple_wood.addEventListener("click", function (event) { 
+    ripple_wood.addEventListener("mousedown", function (event) { 
 
         var norm = Math.sqrt( Math.pow(event.pageX - beforeX,2) + Math.pow(event.pageY - beforeY, 2));
         //console.log(norm);
@@ -376,7 +376,7 @@ function startAccompaniment(timeAry, dataAry, lengthAry, volumeAry, flagAry, mai
             if(mainFlag){
                 if(flagAry[count] == 0){
                     synth.volume.value = -0.1*(255 - volumeAry[count]);
-                    synth.volume.value = -40;
+                    synth.volume.value = -20;
                     var scale = dataAry[count];
                     synth.triggerAttackRelease(scale, lengthAry[count]);
                 }
