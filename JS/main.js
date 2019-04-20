@@ -1,4 +1,5 @@
 var music_scale;
+var music_length;
 var ToneBPM = 90;
 var BPNConvertMSEC = 60 / ToneBPM * 1000;
 Tone.Transport.bpm.value = ToneBPM;
@@ -260,7 +261,7 @@ document.addEventListener("DOMContentLoaded", function(){
         if(count == 0){
             //startAccompaniment(accompaniment_time_ary, accompaniment_data);
            // startAccompaniment(melody_time_ary1, melody_data1, melody_length_ary1, melody_volume_ary1, melodyFlagAry, false);
-            startAccompaniment(melody_time_ary1, melody_data1, melody_length_ary1, melody_volume_ary1, melodyFlagAry, false);
+            startAccompaniment(melody_time_ary1, melody_data1, melody_length_ary1, melody_volume_ary1, melodyFlagAry, true);
 /*            startAccompaniment(melody_time_ary2, melody_data2, melody_length_ary2, melody_volume_ary2, melodyFlagAry, false);
             startAccompaniment(melody_time_ary3, melody_data3, melody_length_ary3, melody_volume_ary3, melodyFlagAry, false);
             startAccompaniment(melody_time_ary4, melody_data4, melody_length_ary4, melody_volume_ary4, melodyFlagAry, false);
@@ -311,9 +312,11 @@ document.addEventListener("DOMContentLoaded", function(){
                         if(norm > norm_threshold){
                             console.log("OK!");
                             music_scale = melody_data[i];
+                            music_length = melody_length_ary[i];
                             melodyFlagAry[i] = 1;
                         }else{
                             music_scale = music_scale;
+                            music_length = music_length;
                             console.log("Same Miss!");
                         }
 /*
