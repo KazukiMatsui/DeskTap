@@ -434,7 +434,13 @@ var melody_volume_ary10 = [
     100,100,100,100,100,100,100,100,100,100,100,100,100
     ];
     
-
+    var timeScale = 1.5;
+    for(var i=0; i<melody_time_ary1.length; i++){
+        melody_time_ary1[i] = melody_time_ary1[i] * timeScale;
+    }
+    for(var i=0; i<melody_time_ary2.length; i++){
+        melody_time_ary2[i] = melody_time_ary2[i] * timeScale;
+    }
 
 var melody_length_ary = melody_length_ary1;
 var melody_time_ary = melody_time_ary1;
@@ -447,6 +453,8 @@ var startTime = new Date(), atTime = new Date(), diffTime = new Date();
 
 var beforeX = 0, beforeY = 0;
 var norm_threshold = -1;
+var beforeRange = 100;
+var afterRange = 100;
 
 document.addEventListener("DOMContentLoaded", function(){
     var ripple_wood = document.getElementById("ripple_div");
@@ -454,7 +462,7 @@ document.addEventListener("DOMContentLoaded", function(){
     ripple_wood.addEventListener("click", function (event) { 
 
         var norm = Math.sqrt( Math.pow(event.pageX - beforeX,2) + Math.pow(event.pageY - beforeY, 2));
-        console.log(norm);
+        //console.log(norm);
         beforeX = event.pageX;
         beforeY = event.pageY;
 
@@ -483,47 +491,55 @@ document.addEventListener("DOMContentLoaded", function(){
         //console.log(diffTime);
         
         var clickSuccessFlag = false;
-        for(var i=atCount+1; i<melody_time_ary.length; i++){
+        for(var i=atCount; i<melody_time_ary.length; i++){
            // music_scale = melody_data[countUp];
            // console.log(melody_time_ary[i] * BPNConvertMSEC);
-            if((melody_time_ary[i]-100) <= diffTime + melody_time_ary[0]){
+            if((melody_time_ary[i] - beforeRange) <= diffTime + melody_time_ary[0] && (melody_time_ary[i] + afterRange) >= diffTime + melody_time_ary[0] ){
                 atCount = i;
                 clickSuccessFlag = true;
+                console.log("Success!" + atCount);
+                break;
             }
         }
 
         var rand = Math.round(Math.random() * melody_data.length);
-        console.log(rand);
+        
         if(clickSuccessFlag){
             for(var i=atCount; i<atCount+10; i++){
                 if(melody_time_ary[atCount] == melody_time_ary[i]){
-                    if(melodyFlagAry[i] == 0){
+                    //if(melodyFlagAry[i] == 0){
                         if(norm > norm_threshold){
-                            //console.log(norm);
+                            console.log("OK!");
                             music_scale = melody_data[i];
+                            melodyFlagAry[i] = 1;
+                        }else{
+                            music_scale = music_scale;
+                            console.log("Same Miss!");
                         }
-                        melodyFlagAry[i] = 1;
-                        ++melodyFlagAry[i];
-                    }else{
+/*
+                   // }else{
                         if(norm > norm_threshold){
-                            console.log(norm);
+                            console.log("Miss1!");
                             music_scale = melody_data[rand];
                         }
                         //music_scale = 0;
-                    }
+                }*/
                     synth.triggerAttackRelease(music_scale, melody_length_ary[i]);
                 }
             }
         }else{
             if(norm > norm_threshold){
+                console.log("Miss2!");
                 music_scale = melody_data[rand];
             }else{
+                console.log("Miss3!");
             }
             synth.triggerAttackRelease(music_scale, "8n");
         }
  
         //music_scale = melody_data[countUp];
         countUp++;
+        
 
         if((melody_time_ary[melody_time_ary.length-1]) < diffTime){
             //Tone.Transport.stop();
@@ -550,13 +566,13 @@ function startAccompaniment(timeAry, dataAry, lengthAry, volumeAry, flagAry, mai
     var synth = new Tone.Synth().toMaster();
     for(var i=0; i<timeAry.length; i++){
         var nextTime = timeAry[i] - melody_time_ary[0];
-        nextTime = nextTime * 2.5;
+        //nextTime = nextTime * 2.5;
 
         waitNote(nextTime, i, mainFlag, flagAry).done(function(count, mainFlag){
             if(mainFlag){
                 if(flagAry[count] == 0){
                     synth.volume.value = -0.1*(255 - volumeAry[count]);
-                    synth.volume.value = -20;
+                    synth.volume.value = -40;
                     var scale = dataAry[count];
                     synth.triggerAttackRelease(scale, lengthAry[count]);
                 }
@@ -577,3 +593,4 @@ function createBrankAry(ary){
     }
     return tempAry;
 }
+
