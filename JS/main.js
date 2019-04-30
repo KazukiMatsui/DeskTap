@@ -83,6 +83,13 @@ document.addEventListener("DOMContentLoaded", function(){
                     //if(melodyFlagAry[i] == 0){
                         if(norm > norm_threshold){
                             console.log("OK!");
+                            for(var j=i+1; j<i+10; j++){
+                                if(melody_time_ary[j] == melody_time_ary[i]){
+                                    i = j;
+                                }else{
+                                    break;
+                                }
+                            }
                             music_scale = melody_data[i];
                             music_length = melody_length_ary[i];
                             melodyFlagAry[i] = 1;
@@ -109,7 +116,7 @@ document.addEventListener("DOMContentLoaded", function(){
             }else{
                 console.log("Miss3!");
             }
-            synth.triggerAttackRelease(music_scale, "8n");
+          //  synth.triggerAttackRelease(music_scale, "8n");
         }
  
         //music_scale = melody_data[countUp];
